@@ -1,12 +1,10 @@
 import React from 'react';
-import Navbar from "./components/Navbar"
-import Table from "./components/Table"
+import EmployeeContainer from "./components/EmployeeContainer"
 
 function App() {
   return (
     <div className="App">
-      <Navbar />
-      <Table />
+      <EmployeeContainer />
     </div>
   );
 }

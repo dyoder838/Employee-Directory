@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -8,7 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import ResultRow from "../Resultrow";
-import API from "../../utils/API";
+
 
 const useStyles = makeStyles({
   table: {
@@ -16,23 +16,10 @@ const useStyles = makeStyles({
   },
 });
 
-
-
-
-export default function BasicTable() {
+export default function BasicTable(props) {
+    console.log("table" , props)
   const classes = useStyles();
-    const [employees, setEmployees] = useState([]);
-
-    useEffect(()=>{
-        getEmployees()
-    },[])
     
-    const getEmployees = ()=> {
-        API.getRandomEmployees().then(res =>{
-            console.log(res.data.results);
-            setEmployees(res.data.results)
-        }).catch((err) => console.log(err));
-    }
 
 
   return (
@@ -41,15 +28,14 @@ export default function BasicTable() {
         <TableHead>
           <TableRow>
             <TableCell align="right">Photo</TableCell>
-            <TableCell align="right">Name</TableCell>
+            <TableCell align="right">First</TableCell>
+            <TableCell align="right">last</TableCell>
             <TableCell align="right">Email</TableCell>
             <TableCell align="right">Phone Number</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {employees.map((emp) => (
-            <ResultRow image={emp.picture.thumbnail} first_name={emp.name.first} last_name={emp.name.last}  email={emp.email} phone_number={emp.phone}/>
-          ))}
+         {props.list.map(emp =>{ return <ResultRow image={emp.image} first={emp.first} last={emp.last} email={emp.email} phone={emp.phone} /> } )}
         </ TableBody>
       </Table>
     </TableContainer>
